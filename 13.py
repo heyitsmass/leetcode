@@ -42,13 +42,4 @@ class Solution:
 
         return conv 
 
-
-
-
-
-
-
-
-Solution().romanToInt('LXIII') 
-        
         
