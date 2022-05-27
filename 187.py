@@ -1,13 +1,5 @@
 class Solution:
   def findRepeatedDnaSequences(self, s: str) -> list:
-    nucleotides = ['A', 'C', 'G', 'T'] 
-
-    if len(s) > pow(10, 5): raise Exception 
-    
-    for char in s: 
-      if char not in nucleotides: 
-        raise Exception  
-
     tmp = dict() 
 
     for i in range(len(s)-9): 
