@@ -1,11 +1,5 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        if len(s) < 1 or len(s) > 15:
-          raise Exception 
-
-        conv = 0 
-
-        legal = ('I', 'V', 'X', 'L', 'C', 'D', 'M', 'IV', 'IX', 'XL', 'XC', 'CD', 'CM') 
 
         roman = { 
           'I': 1,
@@ -14,32 +8,32 @@ class Solution:
           'L': 50, 
           'C': 100, 
           'D': 500, 
-          'M': 1000
+          'M': 1000,
+          'IV': 4,
+          'IX': 9,
+          'XL': 40,
+          'XC': 90,
+          'CD': 400,
+          'CM': 900
         }
-        
-        i = 0
 
+        i = conv = 0 
         while i < len(s): 
-          curr = s[i]
+          curr = s[i] 
           if i+1 < len(s): 
             next = s[i+1] 
-            if curr + next in legal: 
-              conv += roman[next] - roman[curr] 
+            val = roman.get(curr+next) 
+            if val: 
+              conv += val 
               i+=1 
-            elif curr in legal:
-              conv += roman[curr]
             else: 
-              raise Exception
+              conv += roman.get(curr) 
           else: 
-            if curr in legal:
-              conv += roman[curr] 
-            else: 
-              raise Exception 
+            conv += roman.get(curr) 
           i+=1 
 
-        if conv < 1 or conv > 3999: 
-          raise Exception 
-
         return conv 
+
+print(Solution().romanToInt("MCMXCIV"))
 
         
