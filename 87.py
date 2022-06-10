@@ -1,22 +1,41 @@
-import random 
-
-global curr 
+from math import factorial
+import random
 class Solution:
-  def isScramble(self, s1: str, s2: str, curr: int) -> bool:
+  def isScramble(self, s1: str, s2: str) -> bool:
     length = len(s1)
     if length <= 1 and s1 == s2: 
       return True 
     else: 
 
-      for i in range(pow(length* length-1,2)+(length* length-1)):
+      tmp = list()
 
-        tmp = self.getScramble(s1)
+      check = dict() 
 
-        if tmp == s2: 
-          return True 
+      for char in s1: 
+        if char in check.keys(): 
+          check[char] += 1 
+        else: 
+          check[char] = 1 
+
+      div = 1
+
+      for key in check: 
+        div *= factorial(check[key]) 
       
-      return False 
+      num_entries = int(factorial(len(s1)) / div)
 
+
+
+      while len(tmp) <= num_entries: 
+        ret = self.getScramble(s1) 
+        if ret == s2: 
+          return True 
+
+        if ret not in tmp: 
+          tmp.append(ret)  
+
+      
+      return s2 in tmp 
 
   def getScramble(self, s1: str) -> str: 
     if len(s1) <= 1: 
@@ -36,53 +55,23 @@ class Solution:
 
 
 
-
-def test(k, cases, curr): 
-  for i in range(20): 
-    print(f"************* ({k}: {i} ) *************")
-    for case in cases: 
-      s1 = case[0]
-      s2 = case[1]
-      ret = Solution().isScramble(s1, s2, curr)
-      print(f"{s1=}, {s2=} :", ret)
-
-      if ret != case[2]:
-        return False 
-  return True 
-
-
-def repetitive_test(k: int): 
+def repetitive_test(): 
   cases = [
-    ("great", "rgeat", True),
-    ("abcde", "caebd", False), 
-    ("a", "b", False), 
-    ("aa", "aa", True),
-    ("aaa", "aaa", True),
-    ("aaaa", "aaaa", True),
-    ("abcdefg", "efghijc", False),
-    ("abcdefghij", "efghijcadb", False),
+    #("great", "rgeat", True),
+    #("abcde", "caebd", False), 
+    #("a", "b", False), 
+    #("aa", "aa", True),
+    #("aaa", "aaa", True),
+    #("aaaa", "aaaa", True),
+    #("abcdefg", "efghijc", False),
+    #("abcdefghij", "efghijcadb", False),
     ("abcdbdacbdac", "bdacabcdbdac", True),
-    ("great", "gtrae", True),
+    #("great", "gtrae", True),
     ("abcdefghijklmnopq", "efghijklmnopqcadb", False)
   ]
 
-  cases = [ 
-    ("abcdefghijklmnopq", "efghijklmnopqcadb", False)
-  ]
-  curr = 1
-  print(f"************* ( TEST {k} ) *************")
-  return test(k, cases, curr)
+  for case in cases: 
+    print(Solution().isScramble(case[0], case[1])) 
 
 
-
-
-i = 0
-for i in range(20): 
-
-  if not repetitive_test(i):
-    raise Exception 
-  
-  print(f"************* ( PASSED ) *************")
-
-
-
+repetitive_test()
