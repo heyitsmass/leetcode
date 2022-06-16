@@ -8,22 +8,8 @@ class Solution:
     else: 
 
       tmp = list()
-
-      check = dict() 
-
-      for char in s1: 
-        if char in check.keys(): 
-          check[char] += 1 
-        else: 
-          check[char] = 1 
-
-      div = 1
-
-      for key in check: 
-        div *= factorial(check[key]) 
       
-      num_entries = int(factorial(len(s1)) / div)
-
+      num_entries = self.numScrambles(s1) 
 
 
       while len(tmp) <= num_entries: 
@@ -52,6 +38,22 @@ class Solution:
       y = tmp 
     
     return self.getScramble(x) + self.getScramble(y) 
+
+  def numScrambles(self, string): 
+    check = dict() 
+
+    for char in string: 
+      if char in check.keys(): 
+        check[char] += 1 
+      else: 
+        check[char] = 1 
+
+    div = 1
+
+    for key in check: 
+      div *= factorial(check[key]) 
+    
+    return int(factorial(len(string)) / div)
 
 
 
