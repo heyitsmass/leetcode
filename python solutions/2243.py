@@ -1,7 +1,6 @@
 class Solution:
   def digitSum(self, s: str, k: int) -> str:
-    if len(s) <= k: 
-      return s 
+    if len(s) <= k: return s 
 
     new = "" 
 
